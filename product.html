@@ -18,7 +18,7 @@
     <div class="Navigation">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#"><b>SteelTech</b></a>
+              <a class="navbar-brand" href="./index.html"><b>SteelTech</b></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -34,7 +34,7 @@
                     <a class="nav-link" href="./product.html">Product</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="./contact.html">Contact</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#">Feedback</a>
@@ -131,29 +131,29 @@
 <div class="card" style="width: 18rem;">
     <img class="card-img-top" src="./assets/product.webp" alt="Card image cap">
 <div class="card-body">
-<h5 class="card-title">Rolled Metal</h5>
+<h5 class="card-title" id="Card-Title">Rolled Metal</h5>
 <p class="card-text">Some quick example text to build on the Rolled Metal and make up the bulk of the card's content.</p>
-<p class="card-text">50/- KG</p>
-<a href="#" class="btn btn-primary" id="showFormBtn">Explore</a>
+<p class="card-text" id="price">50/- KG</p>
+<a href="#" class="btn btn-primary" id="showFormBtN">Explore</a>
 </div>
 </div>
       
         </div>
         </div>
-        </div>
+        </div>  
         
 </div>
 <div class="popup-form-container" id="popupForm">
-    <h2>Popup Form</h2>
-    <form action="#" method="POST">
-      <input type="text" id="name" name="name" placeholder="Enter Name" required><br>
-      <input type="number" id="email" name="text" placeholder="kilogram" required><br>
-      <input type="number" id="email" name="text" placeholder="Total" class="disabled" required><br>
-      <input type="number" id="email" name="text" placeholder="Phone" required><br>
-      <input type="text" id="email" name="text" placeholder="Location" required><br>
+    <h2>Produ ct List</h2>
+    <form id="productForm">
+      <input type="text" id="productName" name="productName" value="Rolled Metal" readonly disabled><br>
+      <input type="number" id="kg" name="kg" placeholder="kilogram" oninput="calculateTotal()" required><br>
+      <input type="number" id="total" name="total" placeholder="Total" readonly disabled><br>
+      <input type="tel" id="phone" name="phone" placeholder="Phone" required><br>
+      <input type="text" id="location" name="location" placeholder="Location" required><br>
       <button type="submit" class="btn btn-primary">Submit</button>
-      <button type="submit" class="btn btn-primary">Print</button>
     </form>
+    
   </div>
   <div class="overlay" id="overlay"></div>
 
@@ -167,28 +167,43 @@
       </div>
     <!--  -->
     <script>
-        // Get the button and form elements
-        const showFormBtn = document.getElementById('showFormBtn');
+
+      function calculateTotal() {
+        const kgInput = document.getElementById('kg');
+        const totalInput = document.getElementById('total');
+      
+        if (!isNaN(kgInput.value)) {
+          const kgValue = parseFloat(kgInput.value);
+          const unitPrice = 50; 
+          const totalPrice = kgValue * unitPrice;
+          totalInput.value = totalPrice.toFixed(2);
+        } else {
+          totalInput.value = '';
+        }
+      }
+
+      <!--   -->
+      function addProduct() {
+        const form = document.getElementById('productForm');
+        const clone = form.cloneNode(true);
+        form.parentNode.appendChild(clone);
+    }
+        const showFormBtN = document.getElementById('showFormBtN');
         const popupForm = document.getElementById('popupForm');
         const overlay = document.getElementById('overlay');
     
-        // Function to show the popup form and overlay
         function showPopupForm() {
           popupForm.style.display = 'block';
           overlay.style.display = 'block';
         }
+        showFormBtN.addEventListener('click', showPopupForm);
     
-        // Event listener for the button click
-        showFormBtn.addEventListener('click', showPopupForm);
-    
-        // Function to hide the popup form and overlay
         function hidePopupForm() {
           popupForm.style.display = 'none';
           overlay.style.display = 'none';
         }
-    
-        // Close the popup form when clicking outside of it
         overlay.addEventListener('click', hidePopupForm);
       </script>
+      <script src="./script.js"></script>
 </body>
 </html>

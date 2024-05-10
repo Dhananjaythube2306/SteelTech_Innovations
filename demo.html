@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Repeat Form Data</title>
+</head>
+<body>
+
+<div class="popup-form-container" id="popupForm">
+    <h2>Product List</h2>
+    <form id="productForm">
+      <input type="text" id="productName" name="productName" value="Rolled Metal" readonly disabled><br>
+      <input type="number" id="kg" name="kg" placeholder="kilogram" oninput="calculateTotal()" required><br>
+      <input type="number" id="total" name="total" placeholder="Total" readonly disabled><br>
+      <input type="tel" id="phone" name="phone" placeholder="Phone" required><br>
+      <input type="text" id="location" name="location" placeholder="Location" required><br>
+      <button type="button" onclick="addProduct()">Add Product</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<script>
+function calculateTotal() {
+    const kgInput = document.getElementById('kg');
+    const totalInput = document.getElementById('total');
+
+    if (!isNaN(kgInput.value)) {
+        const kgValue = parseFloat(kgInput.value);
+        const unitPrice = 50;
+        const totalPrice = kgValue * unitPrice;
+        totalInput.value = totalPrice.toFixed(2);
+    } else {
+        totalInput.value = '';
+    }
+}
+
+function addProduct() {
+    const form = document.getElementById('productForm');
+    const clone = form.cloneNode(true);
+    form.parentNode.appendChild(clone);
+}
+</script>
+
+</body>
+</html>
